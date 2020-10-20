@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "../../axios-bookshelf";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionTypes from "../../store/actions";
 import {
   ADD_NEW,
+  FIND_MATCHES,
   BOOK_REMOVED,
   BOOK_ADDED,
   NO_BOOKS_TITLE,
@@ -21,6 +23,8 @@ import SuccessSnackbar from "../../components/Snackbar/Snackbar";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import NewBook from "../../components/NewBook/NewBook";
 import EnhancedTable from "../../components/Table/EnhancedTable";
+import Grid from "@material-ui/core/Grid";
+import GroupIcon from "@material-ui/icons/Group";
 
 const useStyles = makeStyles((theme) => ({
   bookshelf: {
@@ -123,15 +127,37 @@ const Bookshelf = () => {
         {adding ? (
           <NewBook onSubmit={addBookHandler} onCancel={toggleIsAdding} />
         ) : (
-          <Button
-            variant="outlined"
-            size="large"
-            color="primary"
-            endIcon={<Icon color="primary">add_circle</Icon>}
-            onClick={toggleIsAdding}
+          <Grid
+            container
+            spacing={2}
+            direction={"row"}
+            alignItems={"center"}
+            justify={"space-evenly"}
           >
-            {ADD_NEW}
-          </Button>
+            <Grid item>
+              <Button
+                variant="outlined"
+                size="large"
+                color="primary"
+                endIcon={<Icon color="primary">add_circle</Icon>}
+                onClick={toggleIsAdding}
+              >
+                {ADD_NEW}
+              </Button>
+            </Grid>
+            <Grid item>
+              <NavLink to="/matches" style={{ textDecoration: "none" }}>
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#43C130" }}
+                  size="large"
+                  endIcon={<GroupIcon />}
+                >
+                  {FIND_MATCHES}
+                </Button>
+              </NavLink>
+            </Grid>
+          </Grid>
         )}
       </div>
       <SuccessSnackbar show={added || deleted} message={successMessage} />

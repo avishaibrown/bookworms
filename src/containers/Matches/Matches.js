@@ -7,6 +7,8 @@ import {
   NO_MATCHES_BODY,
   NO_MATCHES_TITLE,
   SEND_MESSAGE,
+  NOT_ENOUGH_BOOKS,
+  NO_BOOKS_BODY,
 } from "../../util/constants";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -14,6 +16,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import ChatIcon from "@material-ui/icons/Chat";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -30,10 +33,11 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import { getFirstName } from "../../util/util";
 import Chip from "@material-ui/core/Chip";
+import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    width: "60%",
+    maxWidth: "500px",
   },
   cardDetails: {
     flex: 1,
@@ -42,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
   },
   list: {
-    marginTop: theme.spacing(3),
     alignItems: "center",
     maxWidth: "100%",
     backgroundColor: theme.palette.background.paper,
@@ -68,6 +71,7 @@ const Matches = () => {
     (state) => state.matches.matchBookshelfData
   );
   const matchNamesData = useSelector((state) => state.matches.matchNamesData);
+  const bookshelf = useSelector((state) => state.bookshelf.bookshelf);
 
   const dispatch = useDispatch();
 
@@ -96,72 +100,85 @@ const Matches = () => {
     setShowBio(true);
   };
 
-  //TODO: Change matchPercent to more visual book icons
   let matchBookshelfDataList = null;
   if (!loading) {
-    matchBookshelfDataList =
-      matchBookshelfData.length > 0 ? (
-        <Card className={classes.card}>
-          <div className={classes.cardDetails}>
-            <CardContent>
-              <Typography component="h2" variant="h5">
-                {MY_MATCHES}
-              </Typography>
-              <div className={classes.content}>
-                <List className={classes.list}>
-                  {matchBookshelfData.map((value, key) => {
-                    const matchPercent = value[value.length - 1];
-                    return (
-                      <React.Fragment key={key}>
-                        <ListItem
-                          key={key}
-                          button
-                          onClick={() => handleBioOpen(key, matchPercent)}
-                        >
-                          <ListItemAvatar>
-                            <AvatarImage imageNumber={key + 1} />
-                          </ListItemAvatar>
-                          <ListItemText id={`match-percentage-item-${key}`}>
-                            <Typography
-                              component="h1"
-                              variant="h5"
-                              style={{ color: "#388e3c" }}
-                            >
-                              {`${getFirstName(matchNamesData[key].name)}, ${
-                                matchNamesData[key].age
-                              }`}
-                            </Typography>
-                            <Chip
-                              label={<strong>{matchPercent}%</strong>}
-                              style={{ backgroundColor: "orange" }}
-                            />
-                          </ListItemText>
-                          <ListItemSecondaryAction>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className={classes.button}
-                              endIcon={<Icon>send</Icon>}
-                            >
-                              {SEND_MESSAGE}
-                            </Button>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                      </React.Fragment>
-                    );
-                  })}
-                </List>
-              </div>
-            </CardContent>
-          </div>
-        </Card>
-      ) : (
+    if (bookshelf.length >= 5) {
+      matchBookshelfDataList =
+        matchBookshelfData.length > 0 ? (
+          <Card className={classes.card}>
+            <div className={classes.cardDetails}>
+              <CardContent>
+                <Typography component="h2" variant="h5">
+                  <strong>{MY_MATCHES}</strong>
+                </Typography>
+                <div className={classes.content}>
+                  <List className={classes.list}>
+                    {matchBookshelfData.map((value, key) => {
+                      const matchPercent = value[value.length - 1];
+                      return (
+                        <React.Fragment key={key}>
+                          <ListItem
+                            key={key}
+                            button
+                            onClick={() => handleBioOpen(key, matchPercent)}
+                          >
+                            <ListItemAvatar>
+                              <AvatarImage imageNumber={key + 1} />
+                            </ListItemAvatar>
+                            <ListItemText id={`match-percentage-item-${key}`}>
+                              <Typography
+                                component="h1"
+                                variant="h5"
+                                style={{ color: "#388e3c" }}
+                              >
+                                {`${getFirstName(matchNamesData[key].name)}, ${
+                                  matchNamesData[key].age
+                                }`}
+                              </Typography>
+                              <Chip
+                                icon={<MenuBookOutlinedIcon />}
+                                label={<strong>{matchPercent}%</strong>}
+                                style={{ backgroundColor: "orange" }}
+                              />
+                            </ListItemText>
+
+                            <ListItemSecondaryAction>
+                              {window.screen.width > 500 ? (
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  endIcon={<Icon>send</Icon>}
+                                >
+                                  {SEND_MESSAGE}
+                                </Button>
+                              ) : (
+                                <ChatIcon variant="contained" color="primary" />
+                              )}
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                          <Divider variant="inset" component="li" />
+                        </React.Fragment>
+                      );
+                    })}
+                  </List>
+                </div>
+              </CardContent>
+            </div>
+          </Card>
+        ) : (
+          <Alert severity="error">
+            <AlertTitle>{NO_MATCHES_TITLE}</AlertTitle>
+            {NO_MATCHES_BODY}
+          </Alert>
+        );
+    } else {
+      matchBookshelfDataList = (
         <Alert severity="error">
-          <AlertTitle>{NO_MATCHES_TITLE}</AlertTitle>
-          {NO_MATCHES_BODY}
+          <AlertTitle>{NOT_ENOUGH_BOOKS}</AlertTitle>
+          {NO_BOOKS_BODY}
         </Alert>
       );
+    }
   }
 
   return (

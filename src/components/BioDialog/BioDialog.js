@@ -15,7 +15,6 @@ import SimpleTable from "../Table/SimpleTable";
 const styles = (theme) => ({
   root: {
     margin: 0,
-    minWidth: 500,
     padding: theme.spacing(2),
     display: "flex",
     alignItems: "center",

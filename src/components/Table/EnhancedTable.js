@@ -166,7 +166,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          {MY_BOOKSHELF}
+          <strong>{MY_BOOKSHELF}</strong>
         </Typography>
       )}
 
@@ -201,9 +201,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "100%",
     marginBottom: theme.spacing(5),
-  },
-  table: {
-    minWidth: 750,
   },
   visuallyHidden: {
     border: 0,
@@ -291,7 +288,6 @@ export default function EnhancedTable(props) {
         />
         <TableContainer>
           <Table
-            className={classes.table}
             aria-labelledby="tableTitle"
             size="medium"
             aria-label="enhanced table"
@@ -348,8 +344,8 @@ export default function EnhancedTable(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          <TablePagination
+          rowsPerPageOptions={[]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
@@ -357,6 +353,7 @@ export default function EnhancedTable(props) {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+        
       </Paper>
     </div>
   );

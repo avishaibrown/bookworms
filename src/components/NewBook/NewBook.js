@@ -13,9 +13,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "67%",
   },
-  title: {
-    padding: theme.spacing(2),
-  },
   input: {
     padding: theme.spacing(2),
   },
@@ -43,7 +40,7 @@ const NewBook = (props) => {
         </Typography>
         <form onSubmit={onSubmitHandler}>
           <Grid container spacing={12}>
-            <Grid item xs={6} sm={6} className={classes.input}>
+            <Grid item xs={12} sm={6} className={classes.input}>
               <TextField
                 id={camelCase(TITLE)}
                 name={camelCase(TITLE)}
@@ -57,7 +54,7 @@ const NewBook = (props) => {
                 }}
               />
             </Grid>
-            <Grid item xs={6} sm={6} className={classes.input}>
+            <Grid item xs={12} sm={6} className={classes.input}>
               <TextField
                 id={camelCase(AUTHOR)}
                 name={camelCase(AUTHOR)}

@@ -9,6 +9,7 @@ export const MY_PROFILE = "My Profile";
 
 //Bookshelf
 export const ADD_NEW = "Add New";
+export const FIND_MATCHES = "Find Matches";
 export const NEW_BOOK = "New Book";
 export const TITLE = "Title";
 export const AUTHOR = "Author";
@@ -52,6 +53,7 @@ export const NO_MATCHES_BODY =
 export const NO_BOOKS_TITLE = "No books added yet!";
 export const NO_BOOKS_BODY =
   "Please add 5 books to your bookshelf to start finding matches.";
+export const NOT_ENOUGH_BOOKS = "Not enough books added";
 
 //Matches
 export const SIMILARITY = "Similarity";

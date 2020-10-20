@@ -160,7 +160,7 @@ export default function PersistentDrawerLeft(props) {
         </div>
         <Divider />
         <List>
-          <ListItem button key={"myBookshelf"}>
+          <ListItem button key={"myBookshelf"} onClick={handleDrawerClose}>
             <ListItemIcon>
               <AddCircleOutline />
             </ListItemIcon>
@@ -168,7 +168,7 @@ export default function PersistentDrawerLeft(props) {
               <ListItemText primary={MY_BOOKSHELF} />
             </NavLink>
           </ListItem>
-          <ListItem button key={"myMatches"}>
+          <ListItem button key={"myMatches"} onClick={handleDrawerClose}>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
@@ -177,22 +177,24 @@ export default function PersistentDrawerLeft(props) {
             </NavLink>
           </ListItem>
           <Divider />
-          <ListItem button key={"myProfile"}>
+          <ListItem button key={"myProfile"} onClick={handleDrawerClose}>
             <ListItemIcon>
               <AccountCircle />
             </ListItemIcon>
             <NavLink to="/profile" style={{ textDecoration: "none" }}>
               <ListItemText primary={MY_PROFILE} />
             </NavLink>
-            <Badge
-              badgeContent={3}
-              color="primary"
-              style={{ paddingLeft: "25%" }}
-              component={Link}
-              to="/profile"
-            >
-              <MailIcon />
-            </Badge>
+            {isAuthenticated && (
+              <Badge
+                badgeContent={3}
+                color="primary"
+                style={{ paddingLeft: "25%" }}
+                component={Link}
+                to="/profile"
+              >
+                <MailIcon />
+              </Badge>
+            )}
           </ListItem>
         </List>
       </Drawer>
