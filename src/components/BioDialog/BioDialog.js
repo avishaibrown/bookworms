@@ -94,7 +94,7 @@ const BioDialog = (props) => {
             gutterBottom
             variant="h5"
             align="center"
-            flexGrow="1"
+            flexgrow="1"
             color="textPrimary"
           >
             {SIMILARITY}: <strong>{score}%</strong>

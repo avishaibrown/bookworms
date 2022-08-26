@@ -33,7 +33,7 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import { getFirstName } from "../../util/util";
 import Chip from "@material-ui/core/Chip";
-import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
+import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -92,6 +92,7 @@ const Matches = () => {
     setName(matchNamesData[index].name);
     setImageNumber(index + 1);
     setMatchPercent(matchPercent);
+    //TODO: Change displayedMatchData to matchBookshelfData[index] once restructured
     const displayedMatchData = matchBookshelfData[index].slice(
       0,
       matchBookshelfData[index].length - 1

@@ -67,7 +67,7 @@ const NewBook = (props) => {
                 }}
               />
             </Grid>
-            <Grid container justify={"flex-end"} className={classes.buttons}>
+            <Grid container justifyContent={"flex-end"} className={classes.buttons}>
               <Button size="medium" onClick={onCancel}>
                 {CANCEL}
               </Button>

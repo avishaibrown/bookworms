@@ -191,6 +191,7 @@ export default function PersistentDrawerLeft(props) {
                 style={{ paddingLeft: "25%" }}
                 component={Link}
                 to="/profile"
+                overlap="rectangular"
               >
                 <MailIcon />
               </Badge>

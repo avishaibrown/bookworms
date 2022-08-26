@@ -132,7 +132,7 @@ const Bookshelf = () => {
             spacing={2}
             direction={"row"}
             alignItems={"center"}
-            justify={"space-evenly"}
+            justifyContent={"space-evenly"}
           >
             <Grid item>
               <Button
